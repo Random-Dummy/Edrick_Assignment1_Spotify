@@ -2,12 +2,11 @@
 
 You will only need one file, ie, your node module, for this assignment.
 
-In this readme file, describe how to use your node module. It could be similar to **app.js** from Lab2, where you call some functions in your node module and display the output. Describe how to setup your node module, if any. Describe how to call the functions, what parameters required and so on.
+In this readme file, describe how to use your node module. It could be similar to app.js from Lab2, where you call some functions in your node module and display the output. Describe how to setup your node module, if any. Describe how to call the functions, what parameters required and so on.
 
-You can press **Ctrl+Shift+V** in this file in Visual Studio Code to see a live preview of the readme file.
+You can press Ctrl+Shift+V in this file in Visual Studio Code to see a live preview of the readme file.
 
-For some tips in formatting text in readme file, refer to  
-👉 [GitHub Markdown Syntax Guide](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
+For some tips in formatting text in readme file, refer to https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax
 
 ============================================================================================
 
@@ -17,38 +16,16 @@ It provides a variety of CRUD operations and additional utilities like sorting, 
 
 ---
 
-## ⚙️ Setup Instructions
+## Installation/Setup Instructions
 
-1. **Clone or download** this repository to your local system.
+1. Install the file or repository
 2. Ensure **Node.js** is installed on your machine.
-3. In your project folder, make sure the files are structured like this:
-   ```
-   /project-folder
-   ├── app.js
-   ├── test.js
-   └── README.md
-   ```
-4. To run the demonstration, execute the following command in your terminal:
-   ```bash
-   node app.js
-   ```
+4. To run a small demonstration, execute the following command in your terminal:
+```node app.js```
 
 This will showcase all module features and display output directly in the console.
 
----
-
-## 📦 Module Overview
-
-The module (`test.js`) exports various functions to interact with **Users**, **Songs**, and **Playlists**.
-
-### Importing the Module
-```js
-const spotify = require('./test.js');
-```
-
----
-
-## 🧍 User Functions
+### User Functions
 
 | Function | Description | Parameters | Returns |
 |-----------|--------------|-------------|----------|
@@ -58,7 +35,7 @@ const spotify = require('./test.js');
 
 ---
 
-## 🎶 Song Functions
+### Song Functions
 
 | Function | Description | Parameters | Returns |
 |-----------|--------------|-------------|----------|
@@ -71,7 +48,7 @@ const spotify = require('./test.js');
 
 ---
 
-## 🎧 Playlist Functions
+### Playlist Functions
 
 | Function | Description | Parameters | Returns |
 |-----------|--------------|-------------|----------|
@@ -126,7 +103,6 @@ spotify.clearPlaylist(playlist.id);                 // Clear all songs
 
 ## 🧾 Notes
 - All IDs are auto-incremented.
-- Data is stored **in-memory** (not persistent between runs).
 - Invalid IDs or parameters return informative error messages.
 
 ---
