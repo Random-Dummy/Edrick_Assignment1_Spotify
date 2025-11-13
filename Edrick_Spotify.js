@@ -22,14 +22,15 @@ class User {
 
 class Playlist {
     static #playlistID = 1;
-    constructor(name, user, songsID) {
+    constructor(name, userID, songsID) {
         this.id = Playlist.#playlistID++;
         this.name = name;
-        this.user = user;
+        this.userID = userID;
         this.songsID = songsID;
     }
 }
 
+// Pre-made Datasets
 let userList = [new User("Adrian"), new User("Blair"), new User("Calvin")];
 let songList = [
     new Song("Blinding Lights", "The Weeknd", "After Hours", 200, ["Synthwave", "Pop"], "2019-11-29", 5000000),
@@ -39,11 +40,12 @@ let songList = [
     new Song("Positions", "Ariana Grande", "Positions", 193, ["Pop", "R&B"], "2020-10-30", 1500000),
 ];
 let playlistList = [
-    new Playlist("My Favorites", userList[0], [songList[0].id, songList[1].id, songList[2].id]),
-    new Playlist("Chill Vibes", userList[1], [songList[2].id, songList[3].id]),
-    new Playlist("Workout Mix", userList[2], [songList[0].id, songList[4].id]),
+    new Playlist("My Favorites", userList[0].id, [songList[0].id, songList[1].id, songList[2].id]),
+    new Playlist("Chill Vibes", userList[1].id, [songList[2].id, songList[3].id]),
+    new Playlist("Workout Mix", userList[2].id, [songList[0].id, songList[4].id]),
 ];
 
+// Functions
 module.exports = {
     // Get all users, songs, and playlists
     getUsers: () => userList.map(user => ({ ...user })),
@@ -61,8 +63,10 @@ module.exports = {
         songList.push(newSong);
         return newSong;
     },
-    addPlaylist: (name, user, songsID) => {
-        const newPlaylist = new Playlist(name, user, songsID);
+    addPlaylist: (name, userID, songsID) => {
+        const userExists = userList.some(u => u.id === userID);
+        if (!userExists) return { success: false, message: "User not found" };
+        const newPlaylist = new Playlist(name, userID, songsID);
         playlistList.push(newPlaylist);
         return newPlaylist;
     },
@@ -81,7 +85,7 @@ module.exports = {
     getSongsByGenres: (genres) => songList.filter(song => genres.some(genre => song.genre.includes(genre))),
 
     // Get all playlists created by specified userID
-    getPlaylistsByUser: (userID) => playlistList.filter(playlist => playlist.user.id === userID),
+    getPlaylistsByUser: (userID) => playlistList.filter(playlist => playlist.userID === userID),
 
     // Update song information
     updateSong: (songID, updates) => {
@@ -111,7 +115,7 @@ module.exports = {
         }
         try {
             if (updates.name) playlist.name = updates.name;
-            if (updates.user) playlist.user = updates.user;
+            if (updates.userID) playlist.userID = updates.userID;
             if (updates.songsID) playlist.songsID = updates.songsID;
             return { success: true, message: "Playlist updated successfully", playlist: playlist };
         } catch (error) {
@@ -165,9 +169,9 @@ module.exports = {
     moveSongInPlaylist: (playlistID, songID, newIndex) => {
         const playlist = playlistList.find(p => p.id === playlistID);
         if (!playlist) return { success: false, message: "Playlist not found" };
+        if (playlist.songsID.length === 0) return { success: false, message: "Playlist is empty" };
         const idx = playlist.songsID.indexOf(songID);
         if (idx === -1) return { success: false, message: "Song not in playlist" };
-        // clamp index
         newIndex = Math.max(0, Math.min(newIndex, playlist.songsID.length - 1));
         playlist.songsID.splice(idx, 1);
         playlist.songsID.splice(newIndex, 0, songID);
@@ -181,4 +185,4 @@ module.exports = {
         playlist.songsID = [];
         return { success: true, message: "Playlist cleared", playlist };
     }
-}
+};
