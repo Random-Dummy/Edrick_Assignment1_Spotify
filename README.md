@@ -1,8 +1,6 @@
 # Assignment 1
 
-============================================================================================
-
-## 🎵 Description
+## Description
 Using **Spotify** as its base reference, this Node.js module was built to simulate core functionalities of a music streaming platform — such as managing **users**, **songs**, and **playlists**.  
 It provides a variety of CRUD operations and additional utilities like sorting, filtering, and playlist management.
 
