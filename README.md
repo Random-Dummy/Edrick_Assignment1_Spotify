@@ -23,7 +23,7 @@ It provides a variety of CRUD operations and additional utilities like sorting, 
 4. To run a small demonstration, execute the following command in your terminal:
 ```node app.js```
 
-This will showcase all module features and display output directly in the console.
+This will showcase all module features and display output directly in the console/terminal.
 
 ### User Functions
 
@@ -40,7 +40,7 @@ This will showcase all module features and display output directly in the consol
 | Function | Description | Parameters | Returns |
 |-----------|--------------|-------------|----------|
 | `getSongs()` | Get all songs | None | Array of song objects |
-| `addSong(title, artist, album, duration, genre, dateAdded, streamCount)` | Add a new song | Various song info fields | Newly created song object |
+| `addSong(title, artist, album, duration, genre, dateAdded, streamCount)` | Add a new song | Various song info fields, `genre` is an array/list | Newly created song object |
 | `deleteSong(id)` | Delete a song by ID | `id` *(number)* | None |
 | `updateSong(songID, updates)` | Update song details | `songID` *(number)*, `updates` *(object)* | Success or error message |
 | `getTopSongs()` | Get top 5 songs by stream count | None | Array of top songs |
@@ -73,26 +73,26 @@ const spotify = require('./test.js');
 
 console.log("===== 🎵 SPOTIFY DATABASE DEMO =====");
 
-// 1️⃣ Show all users, songs, and playlists
+// Show all users, songs, and playlists
 console.table(spotify.getUsers());
 console.table(spotify.getSongs());
 console.table(spotify.getPlaylists());
 
-// 2️⃣ Add new items
+// Add new items
 const user = spotify.addUser("Diana");
 const song = spotify.addSong("Save Your Tears", "The Weeknd", "After Hours", 215, ["Pop"], "2021-01-05", 4500000);
 const playlist = spotify.addPlaylist("Diana’s Mix", user.id, [song.id]);
 
-// 3️⃣ Update data
+// Update data
 spotify.updateSong(song.id, { title: "Save Your Tears (Remix)", streamCount: 4700000 });
 spotify.updatePlaylist(playlist.id, { name: "Diana’s Favorites" });
 
-// 4️⃣ Advanced features
+// Advanced features
 console.table(spotify.getTopSongs());
 console.table(spotify.getSongsByGenres(["Pop", "R&B"]));
 console.table(spotify.getPlaylistsByUser(user.id));
 
-// 5️⃣ Playlist management
+// Playlist management
 spotify.addSongToPlaylist(playlist.id, 1);          // Add Blinding Lights
 spotify.moveSongInPlaylist(playlist.id, 1, 0);      // Move song
 spotify.removeSongFromPlaylist(playlist.id, -1);    // Remove last song
