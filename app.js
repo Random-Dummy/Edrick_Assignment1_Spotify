@@ -2,7 +2,7 @@ const spotify = require('./test.js');
 
 console.log("===== 🎵 SPOTIFY DATABASE DEMO =====");
 
-// 1️⃣ Show all users, songs, and playlists
+// Show all users, songs, and playlists
 console.log("\n--- Users ---");
 console.table(spotify.getUsers());
 
@@ -14,7 +14,7 @@ console.table(spotify.getSongs().map(s => ({
 console.log("\n--- Playlists ---");
 console.table(spotify.getPlaylists());
 
-// 2️⃣ Add a new user, song, and playlist
+// Add a new user, song, and playlist
 console.log("\n--- Adding new user ---");
 const newUser = spotify.addUser("Diana");
 console.log("Added:", newUser);
@@ -30,30 +30,30 @@ console.log("\n--- Adding new playlist ---");
 const newPlaylist = spotify.addPlaylist("Diana’s Mix", newUser.id, [newSong.id]);
 console.log("Added:", newPlaylist);
 
-// 3️⃣ Update song and playlist
+// Update song and playlist
 console.log("\n--- Updating song ---");
 console.log(spotify.updateSong(newSong.id, { streamCount: 4700000, title: "Save Your Tears (Remix)" }));
 
 console.log("\n--- Updating playlist name ---");
 console.log(spotify.updatePlaylist(newPlaylist.id, { name: "Diana’s Favorites" }));
 
-// 4️⃣ Get top songs
+// Get top songs
 console.log("\n--- Top 5 Songs ---");
 console.table(spotify.getTopSongs().map(s => ({
     id: s.id, title: s.title, streams: s.streamCount
 })));
 
-// 5️⃣ Filter songs by genre
+// Filter songs by genre
 console.log("\n--- Songs with genre 'Pop' or 'R&B' ---");
 console.table(spotify.getSongsByGenres(["Pop", "R&B"]).map(s => ({
     id: s.id, title: s.title, genre: s.genre.join(", ")
 })));
 
-// 6️⃣ Get playlists by user
+// Get playlists by user
 console.log("\n--- Playlists by user Diana ---");
 console.table(spotify.getPlaylistsByUser(newUser.id));
 
-// 7️⃣ Playlist management
+// Playlist management
 console.log("\n--- Adding a song to Diana’s playlist ---");
 console.log(spotify.addSongToPlaylist(newPlaylist.id, 1)); // add Blinding Lights
 
@@ -72,13 +72,13 @@ console.log(spotify.clearPlaylist(newPlaylist.id));
 console.log("\n--- Final state of playlist ---");
 console.table(spotify.getPlaylists());
 
-// 8️⃣ Delete items
+// Delete items
 console.log("\n--- Deleting user Diana, song Save Your Tears, and playlist ---");
 spotify.deleteUser(newUser.id);
 spotify.deleteSong(newSong.id);
 spotify.deletePlaylist(newPlaylist.id);
 
-// 9️⃣ Final summary
+// Final summary
 console.log("\n===== ✅ FINAL DATABASE STATE =====");
 console.log("Users:", spotify.getUsers().length);
 console.log("Songs:", spotify.getSongs().length);
